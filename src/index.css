@@ -1,0 +1,300 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: "IBM Plex Mono", "Share Tech Mono", monospace;
+  color: #e8f0fe;
+  background: #020304;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: radial-gradient(circle at 20% 10%, rgba(0, 212, 255, 0.08), transparent 42%),
+    radial-gradient(circle at 80% 20%, rgba(0, 255, 136, 0.08), transparent 35%),
+    #020304;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.scanline-overlay {
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 255, 136, 0.02) 2px,
+    rgba(0, 255, 136, 0.02) 4px
+  );
+}
+
+.noise-overlay {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  opacity: 0.4;
+}
+
+.timeline-shell {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 3.75rem;
+}
+
+.timeline-rail {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, rgba(0, 255, 136, 0.2), rgba(0, 255, 136, 0.95), rgba(0, 255, 136, 0.2));
+  transform: translateX(-50%) scaleY(0);
+  transform-origin: top center;
+  box-shadow: 0 0 24px rgba(0, 255, 136, 0.28);
+}
+
+.timeline-row {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr 2.5rem 1fr;
+  align-items: center;
+  gap: 2rem;
+}
+
+.timeline-row-right .timeline-card {
+  grid-column: 3;
+}
+
+.timeline-row-left .timeline-card {
+  grid-column: 1;
+  text-align: right;
+}
+
+.timeline-node {
+  grid-column: 2;
+  justify-self: center;
+  width: 1.2rem;
+  height: 1.2rem;
+  border-radius: 9999px;
+  background: #00ff88;
+  box-shadow: 0 0 0 6px rgba(0, 255, 136, 0.1), 0 0 20px rgba(0, 255, 136, 0.9);
+}
+
+.timeline-card {
+  transition: transform 0.25s ease, border-color 0.25s ease;
+  backdrop-filter: blur(5px);
+  will-change: transform, opacity;
+  opacity: 0;
+}
+
+.timeline-node {
+  opacity: 0;
+}
+
+.timeline-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(0, 255, 136, 0.4);
+}
+
+@media (max-width: 900px) {
+  .timeline-rail {
+    left: 0.8rem;
+    transform: scaleY(0);
+  }
+
+  .timeline-row {
+    grid-template-columns: 1.6rem 1fr;
+    gap: 1rem;
+  }
+
+  .timeline-row-left .timeline-card,
+  .timeline-row-right .timeline-card {
+    grid-column: 2;
+    text-align: left;
+  }
+
+  .timeline-node {
+    grid-column: 1;
+  }
+}
+
+.status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  background: #00ff88;
+  animation: pulse-dot 1.8s ease-in-out infinite;
+}
+
+.glitch-text {
+  position: relative;
+  display: inline-block;
+}
+
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+}
+
+.glitch-text::before {
+  color: #00d4ff;
+  animation: glitch-a 4s infinite;
+}
+
+.glitch-text::after {
+  color: #ff2d55;
+  animation: glitch-b 4s infinite;
+}
+
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+    box-shadow: 0 0 0 0 rgba(0, 255, 136, 0.45);
+  }
+  50% {
+    opacity: 0.6;
+    box-shadow: 0 0 0 4px rgba(0, 255, 136, 0);
+  }
+}
+
+@keyframes glitch-a {
+  0%,
+  90%,
+  100% {
+    opacity: 0;
+    transform: translate(0, 0);
+  }
+  91% {
+    opacity: 0.75;
+    transform: translate(-2px, -1px);
+  }
+  94% {
+    opacity: 0;
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes glitch-b {
+  0%,
+  92%,
+  100% {
+    opacity: 0;
+    transform: translate(0, 0);
+  }
+  93% {
+    opacity: 0.75;
+    transform: translate(2px, 1px);
+  }
+  96% {
+    opacity: 0;
+    transform: translate(0, 0);
+  }
+}
+
+.track-card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform, box-shadow;
+}
+
+.track-card:hover {
+  transform: translateY(-6px) scale(1.02);
+  border-color: rgba(0, 255, 136, 0.4);
+  box-shadow: 0 10px 30px -10px rgba(0, 255, 136, 0.25);
+  background-color: rgba(0, 255, 136, 0.02);
+}
+
+.stat-card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.stat-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(0, 212, 255, 0.35);
+  box-shadow: 0 8px 25px -8px rgba(0, 212, 255, 0.15);
+  background-color: rgba(0, 212, 255, 0.02);
+}
+
+a, button {
+  transition: all 0.2s ease;
+}
+
+@keyframes slide-marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(calc(-50% - 0.75rem)); }
+}
+
+.marquee-container {
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+  width: 100%;
+  mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+}
+
+.marquee-content {
+  display: inline-flex;
+  gap: 1.5rem;
+  width: max-content;
+  animation: slide-marquee 25s linear infinite;
+}
+
+.marquee-content:hover {
+  animation-play-state: paused;
+}
+
+/* Technical & Cyber Animations */
+@keyframes text-scramble {
+  0%, 100% { transform: translate(0); }
+  20%  { transform: translate(-2px, 2px); color: #00ff88; text-shadow: 2px 0px #00d4ff; }
+  40%  { transform: translate(-2px, -2px); color: #00d4ff; text-shadow: -2px 0px #ff2d55; }
+  60%  { transform: translate(2px, 2px); color: #ff2d55; text-shadow: 2px 0px #00ff88; }
+  80%  { transform: translate(2px, -2px); color: #00ff88; text-shadow: -2px 0px #00d4ff; }
+}
+
+.hover-glitch {
+  display: inline-block;
+  transition: all 0.2s;
+}
+
+.hover-glitch:hover {
+  animation: text-scramble 0.15s infinite;
+  z-index: 10;
+}
+
+@keyframes scanline-anim {
+  0% { transform: translateY(-100vh); }
+  100% { transform: translateY(100vh); }
+}
+
+.scanline-moving {
+  height: 8px;
+  width: 100%;
+  background: rgba(0, 255, 136, 0.25);
+  box-shadow: 0 0 20px rgba(0, 255, 136, 0.4);
+  animation: scanline-anim 6s linear infinite;
+}
+
+.typing-wrapper {
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 2px solid #00ff88;
+  width: 0;
+  animation: typing 2.5s steps(30, end) forwards, blink-caret 0.75s step-end infinite;
+}
+
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: #00ff88; }
+}
