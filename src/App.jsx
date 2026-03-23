@@ -3,6 +3,7 @@ import anime from "animejs/lib/anime.es.js";
 import ThreeBackdrop from "./components/ThreeBackdrop";
 import AnimateUI from "./components/AnimateUI";
 import LoadingScreen from "./components/LoadingScreen";
+import MobileBlocker from "./components/MobileBlocker";
 
 const stats = [
   { value: "6", label: "Challenge Modules" },
@@ -74,6 +75,7 @@ const formatCountdown = (distance) => {
 
 export default function App() {
   const [loading, setLoading] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
   const [activeFaq, setActiveFaq] = useState(null);
   const [countdown, setCountdown] = useState(() => {
     const target = getCountdownTarget();
@@ -142,6 +144,13 @@ export default function App() {
     return () => window.clearInterval(intervalId);
   }, []);
 
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 1024);
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   const countdownItems = [
     { label: "Days", value: countdown.days },
     { label: "Hours", value: countdown.hours },
@@ -151,6 +160,7 @@ export default function App() {
 
   return (
     <main className={`relative min-h-screen bg-void text-white selection:bg-neon/25 selection:text-white ${loading ? "h-screen overflow-hidden" : "overflow-x-hidden"}`}>
+      {isMobile && <MobileBlocker />}
       {loading && <LoadingScreen onComplete={() => setLoading(false)} />}
       <ThreeBackdrop />
 
