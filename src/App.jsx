@@ -5,28 +5,25 @@ import AnimateUI from "./components/AnimateUI";
 import LoadingScreen from "./components/LoadingScreen";
 
 const stats = [
-  { value: "6", label: "Challenge Modules" },
-  { value: "6H", label: "Duration" },
-  { value: "3", label: "Winner Tiers" },
-  { value: "60+", label: "Participants Expected" }
+  { value: "50", label: "Students Expected" },
+  { value: "₹199", label: "Registration" },
+  { value: "₹10K", label: "Prize Pool" },
+  { value: "3", label: "Winner Tiers" }
 ];
 
 const challengeTracks = [
-  { name: "Guardrail Bypass", level: "Beginner", desc: "Craft prompts that force model behavior beyond normal policy boundaries.", tags: ["Prompt Injection", "Role Play"] },
-  { name: "Context Manipulation", level: "Intermediate", desc: "Use long-context, memory drift, and multi-turn strategy to steer outputs.", tags: ["Multi-turn", "Memory"] },
-  { name: "System Prompt Extraction", level: "Intermediate", desc: "Reverse engineer hidden policy instructions from observable responses.", tags: ["Recon", "OSINT"] },
-  { name: "Adversarial Prompting", level: "Advanced", desc: "Design compact high-impact prompts with reproducible jailbreak behavior.", tags: ["Optimization", "Automated"] },
-  { name: "Agent Exploitation", level: "Advanced", desc: "Target tool-using agent flows and induce unintended actions safely.", tags: ["Agentic AI", "Tool Use"] },
-  { name: "Zero-Day Track", level: "Expert", desc: "Discover genuinely novel vectors not covered by standard red-team playbooks.", tags: ["Novel", "Research"] }
+  { name: "Level-Based Qualifier", level: "Round 1", desc: "All participants start at Level 1. Face a restricted AI system with a hidden objective. Break the constraints to progress.", tags: ["Qualifier", "Level 1"] },
+  { name: "Progressive Elimination", level: "Round 2", desc: "Difficulty increases with each level. Only those who crack higher levels move ahead. Scored by levels cleared and time taken.", tags: ["Elimination", "Speed"] },
+  { name: "Final Showdown", level: "Round 3", desc: "Top participants face advanced AI systems with multi-layer defenses. Real-time leaderboard tracking the ultimate winner.", tags: ["Finale", "Advanced"] }
 ];
 
 const rules = [
-  "Teams of 1-3 members. Solo participants welcome.",
-  "Every jailbreak submission must include a reproducible prompt chain.",
-  "Scoring is based on severity, novelty, and reproducibility.",
-  "Use provided sandbox assets only, no production API brute force.",
-  "Responsible disclosure is mandatory for all findings.",
-  "Judging decisions are final. Plagiarism leads to disqualification."
+  "Platform: Custom-built PromptWars web application.",
+  "Participants must rely strictly on their own logic and prompt engineering skills.",
+  "Strictly prohibited: External help, collaboration, and pre-built jailbreak scripts.",
+  "Do not exploit platform bugs (report them instead).",
+  "Maintain fair play. Do not share answers or specific prompts during the event.",
+  "Any malpractice will lead to immediate disqualification."
 ];
 
 const memories = [
@@ -54,22 +51,21 @@ const memories = [
 
 const timeline = [
   { date: "March 26 - April 6", title: "Registration Period", desc: "Sign up on Unstop to secure your spot in the league. Limited entries available." },
-  { date: "April 4", title: "Mock Contest", desc: "Get familiar with the platform and testing environment. Not scored." },
-  { date: "April 5 | 10:00 AM", title: "PromptWar Qualifier", desc: "The online battle begins. Two hours of algorithmic challenges." },
-  { date: "April 5 | 03:00 PM", title: "Finalists Announcement", desc: "The top 50 participants who qualify for the grand finale are announced." },
-  { date: "April 7", title: "Grand Finale and Ceremony", desc: "The offline showdown at Galgotias Campus, followed by the prize ceremony." }
+  { date: "April 7 | 09:00 AM", title: "Event Kickoff", desc: "Reporting and commencement of the PromptWar challenge at Galgotias Campus." },
+  { date: "April 7 | 09:30 AM - 01:30 PM", title: "PromptWar Challenges", desc: "Level-based qualifiers, progressive elimination, and final showdown." },
+  { date: "April 7 | 02:00 PM", title: "Prize Ceremony", desc: "Announcement of winners and distribution of the prize pool." }
 ];
 
 const faqs = [
-  { question: "Who can participate?", answer: "The event is open to all university students. You can participate solo or in teams of up to 3 members." },
-  { question: "Is there any registration fee?", answer: "No, participation in PromptWar is completely free of charge." },
-  { question: "What is the format of the event?", answer: "The competition starts with an online qualifier on April 5th. The top 50 participants will be invited to the offline Grand Finale at Galgotias Campus on April 7th." },
-  { question: "Do I need prior experience in AI red-teaming?", answer: "While helpful, prior experience isn't required. We provide a platform guide and resources. It's a great opportunity to learn about AI security and prompt engineering!" }
+  { question: "Who can participate?", answer: "The event is open to university students, with an expected crowd of 50 participants." },
+  { question: "Is there any registration fee?", answer: "Yes, the registration fee is ₹199 per participant." },
+  { question: "What is the format of the event?", answer: "PromptWars is a gamified cyber-security style challenge featuring a Level-Based Qualifier, Progressive Elimination, and a Final Showdown." },
+  { question: "Do I need prior experience in AI red-teaming?", answer: "While helpful, prior experience isn't required. We provide a platform guide. It's a great opportunity to learn about AI security and prompt engineering!" }
 ];
 
 const getCountdownTarget = () => {
   const now = new Date();
-  const target = new Date(`${now.getFullYear()}-04-07T10:00:00+05:30`);
+  const target = new Date(`${now.getFullYear()}-04-07T09:00:00+05:30`);
   if (target <= now) target.setFullYear(target.getFullYear() + 1);
   return target;
 };
@@ -88,6 +84,7 @@ export default function App() {
   const [loading, setLoading] = useState(true);
   const [activeFaq, setActiveFaq] = useState(null);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [heroImg, setHeroImg] = useState(0);
   const [countdown, setCountdown] = useState(() => {
     const target = getCountdownTarget();
     return formatCountdown(target.getTime() - Date.now());
@@ -155,6 +152,12 @@ export default function App() {
     return () => window.clearInterval(intervalId);
   }, []);
 
+  // Cycle hero images
+  useEffect(() => {
+    const id = setInterval(() => setHeroImg(prev => (prev + 1) % 3), 3000);
+    return () => clearInterval(id);
+  }, []);
+
   // Close mobile menu on scroll
   useEffect(() => {
     const handleScroll = () => { if (menuOpen) setMenuOpen(false); };
@@ -181,7 +184,10 @@ export default function App() {
       <AnimateUI className="relative z-10 flex flex-col w-full">
         <header data-animate className="sticky top-0 z-50 w-full border-b border-slate-800/50 bg-black/30 px-4 py-3 backdrop-blur-md md:px-10 md:py-4">
           <div className="mx-auto flex w-full max-w-7xl items-center justify-between">
-            <a href="#hero" className="font-semibold tracking-[0.2em] text-neon text-sm md:text-base">PROMPTWAR</a>
+            <a href="#hero" className="flex items-center gap-2 sm:gap-3">
+              <img src="/eventlogo.png" alt="PromptWar Logo" className="h-7 w-7 sm:h-8 sm:w-8 md:h-9 md:w-9 object-contain" />
+              <span className="font-semibold tracking-[0.2em] text-neon text-sm md:text-base">PROMPTWAR</span>
+            </a>
             <nav className="hidden gap-8 text-xs uppercase tracking-[0.18em] text-slate-300 md:flex">
               <a href="#about" className="transition hover:text-neon">About</a>
               <a href="#challenges" className="transition hover:text-neon">Challenges</a>
@@ -207,7 +213,7 @@ export default function App() {
           {/* Mobile dropdown */}
           <nav className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${menuOpen ? 'max-h-80 opacity-100 mt-3' : 'max-h-0 opacity-0'}`}>
             <div className="flex flex-col gap-3 pb-3 border-t border-slate-800/50 pt-3">
-              {["about","challenges","rules","prizes","memories","register"].map(item => (
+              {["about", "challenges", "rules", "prizes", "memories", "register"].map(item => (
                 <a
                   key={item}
                   href={`#${item}`}
@@ -251,7 +257,7 @@ export default function App() {
                   View Challenges
                 </a>
               </div>
-              
+
               <div className="mt-14 sm:mt-20 w-full sm:w-fit">
                 <div className="flex justify-between gap-4 sm:gap-8 md:gap-16">
                   {countdownItems.map((item) => (
@@ -263,13 +269,29 @@ export default function App() {
                 </div>
               </div>
             </div>
-            
+
             <div className="lg:w-2/5 flex justify-center lg:justify-end relative z-10 mt-12 lg:mt-0 w-full">
-              <img 
-                src="/mascot.png" 
-                alt="PromptWar Mascot" 
-                className="w-72 sm:w-80 md:w-96 lg:w-[36rem] object-contain animate-float drop-shadow-[0_0_30px_rgba(0,255,136,0.5)]"
-              />
+              <div className="hero-roll-container relative w-72 sm:w-80 md:w-96 lg:w-[36rem] aspect-square">
+                {[
+                  { src: "/eventlogo.png", alt: "PromptWar Event Logo" },
+                  { src: "/mascot.png", alt: "PromptWar Mascot" },
+                  { src: "/loop.png", alt: "LOOP Club Logo" }
+                ].map((img, i) => {
+                  let stateClass = 'hero-roll-enter';
+                  if (i === heroImg) stateClass = 'hero-roll-active';
+                  else if (i === (heroImg === 0 ? 2 : heroImg - 1)) stateClass = 'hero-roll-exit';
+
+                  return (
+                    <div key={img.src} className={`absolute inset-0 w-full h-full hero-roll-wrapper ${stateClass}`}>
+                      <img
+                        src={img.src}
+                        alt={img.alt}
+                        className="w-full h-full object-contain animate-float drop-shadow-[0_0_30px_rgba(0,255,136,0.5)]"
+                      />
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           </div>
         </section>
@@ -291,9 +313,9 @@ export default function App() {
           <div className="mx-auto grid w-full max-w-7xl gap-12 px-6 md:grid-cols-2 md:gap-24 md:px-10 items-center">
             <article>
               <p className="text-xs uppercase tracking-[0.3em] text-neon">What is this</p>
-              <h2 className="mt-4 font-sans text-4xl font-bold leading-tight text-white md:text-6xl hover-glitch">Red Teaming an AI</h2>
-              <p className="mt-8 text-lg leading-relaxed text-slate-300">PromptWar is a practical LLM red-teaming challenge focused on adversarial prompting, policy stress testing, and responsible disclosure.</p>
-              <p className="mt-4 text-lg leading-relaxed text-slate-400">Unlike standard CTFs, this event evaluates impact, novelty, and reproducibility of prompt chains rather than code exploits.</p>
+              <h2 className="mt-4 font-sans text-4xl font-bold leading-tight text-white md:text-6xl hover-glitch">Hack the AI</h2>
+              <p className="mt-8 text-lg leading-relaxed text-slate-300">PromptWars is a next-generation AI challenge focused on prompt engineering, logic manipulation, and adversarial thinking.</p>
+              <p className="mt-4 text-lg leading-relaxed text-slate-400">Interact with a custom-built AI system designed with layered security. Break constraints to progress through increasingly difficult levels. We emphasize how you think, not just how you code.</p>
             </article>
             <article className="rounded-2xl border border-slate-700/40 bg-black/40 backdrop-blur-md p-8 shadow-2xl">
               <div className="mb-6 flex items-center gap-3 border-b border-slate-800 pb-4">
@@ -317,8 +339,8 @@ export default function App() {
         {/* ── Challenges ────────────────────────────── */}
         <section id="challenges" data-animate className="w-full bg-transparent py-24 md:py-32 border-t border-slate-800/30">
           <div className="mx-auto w-full max-w-7xl px-6 md:px-10">
-            <p className="text-xs uppercase tracking-[0.3em] text-neon text-center">Challenge Tracks</p>
-            <h2 className="mt-4 font-sans text-4xl font-bold text-white md:text-6xl hover-glitch text-center">Pick Your Attack Vector</h2>
+            <p className="text-xs uppercase tracking-[0.3em] text-neon text-center">Round Structure</p>
+            <h2 className="mt-4 font-sans text-4xl font-bold text-white md:text-6xl hover-glitch text-center">Progression Levels</h2>
             <div className="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               {challengeTracks.map((track) => (
                 <article key={track.name} className="track-card rounded-2xl border border-slate-700/30 bg-black/20 backdrop-blur-sm p-8 transition hover:border-neon/50 hover:bg-black/40">
@@ -366,8 +388,8 @@ export default function App() {
         {/* ── Rules ───────────────────────────────────── */}
         <section id="rules" data-animate className="w-full bg-transparent py-24 md:py-32 border-t border-slate-800/30">
           <div className="mx-auto w-full max-w-4xl px-6 md:px-10 text-center">
-            <p className="text-xs uppercase tracking-[0.3em] text-neon">Rules of Engagement</p>
-            <h3 className="mt-4 font-sans text-4xl font-bold text-white md:text-6xl hover-glitch">How It Works</h3>
+            <p className="text-xs uppercase tracking-[0.3em] text-neon">Simplified Handbook</p>
+            <h3 className="mt-4 font-sans text-4xl font-bold text-white md:text-6xl hover-glitch">Rules of Play</h3>
             <div className="mt-16 text-left space-y-6 rounded-2xl border border-slate-700/30 bg-black/20 backdrop-blur-md p-8 md:p-12 shadow-2xl">
               {rules.map((rule, index) => (
                 <div key={rule} className="flex gap-5 border-b border-slate-800/50 pb-6 text-lg text-slate-300 last:border-0 last:pb-0">
@@ -387,18 +409,18 @@ export default function App() {
             <div className="mt-16 grid gap-6 md:grid-cols-3">
               <article className="rounded-2xl border border-neon/40 bg-emerald-950/20 backdrop-blur-md p-10 transform md:-translate-y-4">
                 <p className="text-sm uppercase tracking-[0.2em] text-neon font-bold">1st Place</p>
-                <h4 className="mt-4 font-sans text-4xl font-black text-neon">Hall of Fame</h4>
-                <p className="mt-4 text-base text-slate-300 leading-relaxed">Trophy, merch kit, recognition, and excellence letter.</p>
+                <h4 className="mt-4 font-sans text-5xl font-black text-neon">₹6,000</h4>
+                <p className="mt-4 text-base text-slate-300 leading-relaxed font-bold">+ Winner Certificate</p>
               </article>
               <article className="rounded-2xl border border-cyan-500/30 bg-cyan-950/20 backdrop-blur-md p-10">
                 <p className="text-sm uppercase tracking-[0.2em] text-cyan-300 font-bold">2nd Place</p>
-                <h4 className="mt-4 font-sans text-3xl font-black text-cyan-300">Runner Up</h4>
-                <p className="mt-4 text-base text-slate-300 leading-relaxed">Merch, certificate, and platform spotlight.</p>
+                <h4 className="mt-4 font-sans text-4xl font-black text-cyan-300">₹4,000</h4>
+                <p className="mt-4 text-base text-slate-300 leading-relaxed font-bold">+ Runner-Up Certificate</p>
               </article>
               <article className="rounded-2xl border border-amber-500/30 bg-amber-950/20 backdrop-blur-md p-10 mt-6 md:mt-0">
                 <p className="text-sm uppercase tracking-[0.2em] text-amber-300 font-bold">3rd Place</p>
-                <h4 className="mt-4 font-sans text-3xl font-black text-amber-300">Top 3</h4>
-                <p className="mt-4 text-base text-slate-300 leading-relaxed">Certificate of achievement and community recognition.</p>
+                <h4 className="mt-4 font-sans text-3xl font-black text-amber-300">Special</h4>
+                <p className="mt-4 text-base text-slate-300 leading-relaxed font-bold">Memento + Certificate</p>
               </article>
             </div>
           </div>
@@ -464,7 +486,7 @@ export default function App() {
                 const isActive = activeFaq === index;
                 return (
                   <article key={index} className="rounded-2xl border border-slate-700/40 bg-black/20 backdrop-blur-md overflow-hidden transition-all duration-300">
-                    <button 
+                    <button
                       onClick={() => setActiveFaq(isActive ? null : index)}
                       className="flex w-full items-center justify-between p-6 md:p-8 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-neon/50"
                     >
@@ -475,7 +497,7 @@ export default function App() {
                         +
                       </span>
                     </button>
-                    <div 
+                    <div
                       className={`overflow-hidden transition-all duration-300 ease-in-out ${isActive ? 'max-h-64 opacity-100' : 'max-h-0 opacity-0'}`}
                     >
                       <p className="px-6 pb-6 md:px-8 md:pb-8 text-base leading-relaxed text-slate-300">
@@ -493,8 +515,15 @@ export default function App() {
         <footer data-animate className="w-full border-t border-slate-800/60 bg-black/20 backdrop-blur-sm pb-12 pt-20">
           <div className="mx-auto flex w-full max-w-7xl flex-col gap-16 px-6 md:flex-row md:justify-between lg:gap-24 md:px-10">
             <div className="flex flex-col gap-6 md:w-1/3">
-              <p className="text-2xl font-bold tracking-[0.2em] text-neon mb-4">PROMPTWAR</p>
-              <p className="text-sm leading-relaxed text-slate-400">Designed by <strong className="text-white">CLUB LOOP</strong></p>
+              <div className="flex items-center gap-3 mb-2">
+                <img src="/eventlogo.png" alt="PromptWar Logo" className="h-8 w-8 object-contain" />
+                <p className="text-2xl font-bold tracking-[0.2em] text-neon">PROMPTWAR</p>
+              </div>
+              <div className="flex items-center gap-2 text-sm leading-relaxed text-slate-400">
+                <span>Designed by</span>
+                <img src="/loop.png" alt="LOOP Logo" className="h-5 w-5 object-contain" />
+                <strong className="text-white tracking-widest">CLUB LOOP</strong>
+              </div>
               <p className="text-sm leading-relaxed text-slate-400">A security challenge redefining the boundaries of AI red-teaming and prompt engineering.</p>
               <div className="mt-2 flex gap-6">
                 <a href="https://www.instagram.com/gcetloop" target="_blank" rel="noreferrer" className="text-sm font-bold uppercase tracking-widest text-slate-400 transition hover:text-neon">Instagram</a>
@@ -529,9 +558,16 @@ export default function App() {
               </div>
             </div>
           </div>
-          <div className="mx-auto mt-20 flex w-full max-w-7xl flex-col items-center justify-between border-t border-slate-800/60 pt-8 px-6 text-xs font-mono uppercase tracking-[0.2em] text-slate-500 md:flex-row md:px-10">
-            <p className="mb-4 md:mb-0">© {new Date().getFullYear()} CLUB LOOP.</p>
-            <p>ALL RIGHTS RESERVED.</p>
+          <div className="mx-auto mt-20 flex w-full max-w-7xl flex-col items-center justify-between border-t border-slate-800/60 pt-8 px-6 gap-6 text-xs font-mono uppercase tracking-[0.2em] text-slate-500 md:flex-row md:px-10 md:gap-0">
+            <div className="flex items-center gap-3">
+              <img src="/eventlogo.png" alt="PromptWar Logo" className="h-5 w-5 object-contain opacity-60" />
+              <p>© {new Date().getFullYear()} PROMPT WAR</p>
+            </div>
+            <div className="flex items-center gap-2">
+              <span>DESIGNED BY</span>
+              <img src="/loop.png" alt="LOOP" className="h-4 w-4 object-contain opacity-80" />
+              <span className="text-white font-bold">CLUB LOOP</span>
+            </div>
           </div>
         </footer>
       </AnimateUI>

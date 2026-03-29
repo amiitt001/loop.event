@@ -516,6 +516,43 @@ a, button {
   animation: float 6s ease-in-out infinite;
 }
 
+/* ── Hero Ludo Shuffle (logo ↔ mascot ↔ loop) ────────────── */
+.hero-roll-container {
+  perspective: 1200px;
+  transform-style: preserve-3d;
+}
+
+.hero-roll-wrapper {
+  /* Bouncy, tumbling transition matching a rolling dice */
+  transition: opacity 0.7s ease-in-out, transform 0.85s cubic-bezier(0.34, 1.56, 0.64, 1);
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  transform-origin: center center -50px;
+}
+
+.hero-roll-active {
+  opacity: 1;
+  /* Settled dice face */
+  transform: translateY(0) translateZ(0) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale(1);
+  z-index: 20;
+}
+
+.hero-roll-exit {
+  opacity: 0;
+  /* Tossed upwards and tumbling away */
+  transform: translateY(-150px) translateZ(-300px) rotateX(270deg) rotateY(-180deg) rotateZ(90deg) scale(0.3);
+  pointer-events: none;
+  z-index: 10;
+}
+
+.hero-roll-enter {
+  opacity: 0;
+  /* Tossed inwards from below, tumbling rapidly */
+  transform: translateY(150px) translateZ(-300px) rotateX(-270deg) rotateY(180deg) rotateZ(-90deg) scale(0.3);
+  pointer-events: none;
+  z-index: 10;
+}
+
 /* ── 3D Perspective Gallery ──────────────────────── */
 .gallery-3d-section {
   perspective: 1400px;
