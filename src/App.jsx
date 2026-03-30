@@ -328,7 +328,7 @@ export default function App() {
             </div>
 
             <div className="lg:w-2/5 flex justify-center lg:justify-end relative z-10 mt-12 lg:mt-0 w-full">
-              <div className="hero-roll-container relative w-72 sm:w-80 md:w-96 lg:w-[36rem] aspect-square">
+              <div className="hero-roll-container relative w-80 sm:w-96 md:w-[32rem] lg:w-[42rem] aspect-square">
                 {[
                   { src: "/eventlogo.png", alt: "GPL Event Logo" },
                   { src: "/mascot.png", alt: "GPL Mascot" },
