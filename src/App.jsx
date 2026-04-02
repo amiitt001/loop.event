@@ -19,7 +19,7 @@ const challengeTracks = [
 
 const rules = [
   "Eligibility: Open to all undergraduate students (Individual Participation).",
-  "Setup: Participants must bring their own laptops. internet restricted to competition platform.",
+  "Setup: Participants must bring their own laptops. Internet is restricted to the Codeforces platform.",
   "Knockout: Approx. 50% participants advance per round until a single champion remains.",
   "Scoring: Based on problems solved, time taken, and penalty for incorrect submissions.",
   "Strictly Prohibited: AI tools, online forums, code sharing, or external resources.",
@@ -68,9 +68,9 @@ const faqCategories = [
   {
     title: "Technical",
     faqs: [
-      { q: "What programming languages are supported?", a: "The online judge platform supports all major competitive programming languages." },
-      { q: "Which platform will be used for the contest?", a: "We use an online judge system with automated evaluation for correctness and efficiency." },
-      { q: "How will the contest be evaluated?", a: "Evaluation is based on problems solved, execution time, and correctness." },
+      { q: "What programming languages are supported?", a: "Codeforces supports all major competitive programming languages (C++, Java, Python, etc.)." },
+      { q: "Which platform will be used for the contest?", a: "The contest will be hosted on Codeforces." },
+      { q: "How will the contest be evaluated?", a: "Evaluation is handled automatically by Codeforces based on problems solved, execution time, and correctness." },
       { q: "What is the penalty system?", a: "Incorrect submissions result in a time penalty to ensure accuracy." }
     ]
   },
