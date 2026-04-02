@@ -8,7 +8,7 @@ const stats = [
   { value: "Individual", label: "Participation" },
   { value: "₹200", label: "Registration" },
   { value: "₹60K", label: "Prize Pool" },
-  { value: "BYOL", label: "Bring Your Laptop" }
+  { value: "BYOL", label: "Bring Your Own Laptop" }
 ];
 
 const challengeTracks = [
@@ -651,7 +651,7 @@ export default function App() {
           aria-label="Scroll to top"
         >
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="m18 15-6-6-6 6"/>
+            <path d="m18 15-6-6-6 6" />
           </svg>
         </a>
       </AnimateUI>
