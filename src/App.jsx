@@ -11,10 +11,10 @@ const stats = [
   { value: "BYOL", label: "Bring Your Own Laptop" }
 ];
 
-const challengeTracks = [
+const challengeTracks = [-
   { name: "Knockout Stages", level: "Elimination", desc: "Multi-round knockout format. In each round, approx. 50% of participants advance. Rounds last 45 minutes with a focus on logic and speed.", tags: ["45 Min Rounds", "50% Advance"] },
-  { name: "Core Problems", level: "Structure", desc: "Each round includes 3 problems: Data Structures & Algorithms, Logical Reasoning, and Implementation. No room for error.", tags: ["DSA", "Logic"] },
-  { name: "Final Showdown", level: "GPL Champion", desc: "Finalists compete in a high-stakes final round. The last remaining participant will be crowned the GPL 1.0 Champion.", tags: ["Finale", "Champion"] }
+{ name: "Core Problems", level: "Structure", desc: "Each round includes 3 problems: Data Structures & Algorithms, Logical Reasoning, and Implementation. No room for error.", tags: ["DSA", "Logic"] },
+{ name: "Final Showdown", level: "GPL Champion", desc: "Finalists compete in a high-stakes final round. The last remaining participant will be crowned the GPL 1.0 Champion.", tags: ["Finale", "Champion"] }
 ];
 
 const rules = [
@@ -94,7 +94,7 @@ const faqCategories = [
     title: "Prizes",
     faqs: [
       { q: "What are the prizes?", a: "Total prize pool is ₹60,000 with ₹35K for the Winner and ₹25K for the Runner-up." },
-      { q: "Are there any additional benefits?", a: "Top 10 participants receive exclusive Tech Jerseys, plus medals and certificates." }
+      { q: "Are there any additional benefits?", a: "All participants receive a participation certificate. Winners and runners-up also receive certificates of excellence along with their cash prizes." }
     ]
   },
   {
@@ -467,12 +467,12 @@ export default function App() {
               <article className="rounded-2xl border border-neon/40 bg-emerald-950/20 backdrop-blur-md p-10 transform md:-translate-y-4">
                 <p className="text-sm uppercase tracking-[0.2em] text-neon font-bold">Winner</p>
                 <h4 className="mt-4 font-sans text-5xl font-black text-neon">₹35,000</h4>
-                <p className="mt-4 text-base text-slate-300 leading-relaxed font-bold">Trophy + Swag + Tech Jersey + Certificate</p>
+                <p className="mt-4 text-base text-slate-300 leading-relaxed font-bold">Cash + Certificate of Excellence</p>
               </article>
               <article className="rounded-2xl border border-cyan-500/30 bg-cyan-950/20 backdrop-blur-md p-10">
                 <p className="text-sm uppercase tracking-[0.2em] text-cyan-300 font-bold">Runner Up</p>
                 <h4 className="mt-4 font-sans text-4xl font-black text-cyan-300">₹25,000</h4>
-                <p className="mt-4 text-base text-slate-300 leading-relaxed font-bold">Trophy + Swag + Tech Jersey + Certificate</p>
+                <p className="mt-4 text-base text-slate-300 leading-relaxed font-bold">Cash + Certificate of Excellence</p>
               </article>
               <article className="rounded-2xl border border-slate-700/30 bg-black/40 backdrop-blur-md p-10 mt-6 md:mt-0">
                 <p className="text-sm uppercase tracking-[0.2em] text-slate-400 font-bold">All Participants</p>
