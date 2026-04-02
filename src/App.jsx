@@ -518,6 +518,9 @@ export default function App() {
           <div className="mx-auto w-full max-w-7xl px-6 md:px-10 text-center">
             <p className="text-xs uppercase tracking-[0.3em] text-neon">The Team</p>
             <h3 className="mt-4 font-sans text-4xl font-bold text-white md:text-6xl hover-glitch">Organized by LOOP</h3>
+            <p className="mt-6 text-sm md:text-base font-mono uppercase tracking-[0.2em] text-neon italic">
+              "For the LOOP, from the LOOP, by the LOOP"
+            </p>
             <div className="mt-12 grid gap-6 md:max-w-3xl mx-auto md:grid-cols-2">
               <article className="rounded-2xl border border-slate-700/40 bg-black/20 backdrop-blur-md p-8">
                 <p className="text-xl font-bold text-white">LOOP</p>
@@ -584,10 +587,15 @@ export default function App() {
                 <img src="/eventlogo.png" alt="GPL Logo" className="h-8 w-8 object-contain" />
                 <p className="text-2xl font-bold tracking-[0.2em] text-neon">GPL 1.0</p>
               </div>
-              <div className="flex items-center gap-2 text-sm leading-relaxed text-slate-400">
-                <span>Designed by</span>
-                <img src="/loop.png" alt="LOOP Logo" className="h-5 w-5 object-contain" />
-                <strong className="text-white tracking-widest">CLUB LOOP</strong>
+              <div className="flex flex-col gap-1">
+                <div className="flex items-center gap-2 text-sm leading-relaxed text-slate-400">
+                  <span>Designed by</span>
+                  <img src="/loop.png" alt="LOOP Logo" className="h-5 w-5 object-contain" />
+                  <strong className="text-white tracking-widest">CLUB LOOP</strong>
+                </div>
+                <p className="text-[10px] font-mono uppercase tracking-[0.2em] text-neon/80 italic">
+                  "For the LOOP, from the LOOP, by the LOOP"
+                </p>
               </div>
               <p className="text-sm leading-relaxed text-slate-400">A flagship competitive programming tournament focused on algorithmic thinking, coding excellence, and logic building.</p>
               <div className="mt-2 flex gap-6">
