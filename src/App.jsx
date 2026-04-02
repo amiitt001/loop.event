@@ -11,7 +11,7 @@ const stats = [
   { value: "BYOL", label: "Bring Your Own Laptop" }
 ];
 
-const challengeTracks = [-
+const challengeTracks = [
   { name: "Knockout Stages", level: "Elimination", desc: "Multi-round knockout format. In each round, approx. 50% of participants advance. Rounds last 45 minutes with a focus on logic and speed.", tags: ["45 Min Rounds", "50% Advance"] },
 { name: "Core Problems", level: "Structure", desc: "Each round includes 3 problems: Data Structures & Algorithms, Logical Reasoning, and Implementation. No room for error.", tags: ["DSA", "Logic"] },
 { name: "Final Showdown", level: "GPL Champion", desc: "Finalists compete in a high-stakes final round. The last remaining participant will be crowned the GPL 1.0 Champion.", tags: ["Finale", "Champion"] }
